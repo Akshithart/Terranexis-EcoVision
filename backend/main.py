@@ -1,5 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
-
+from carbon_calculator import carbon_saved
 app = FastAPI()
 
 @app.get("/")
@@ -16,7 +16,9 @@ async def upload_image(file: UploadFile = File(...)):
 async def analyze_image():
 
     waste_type = "Plastic"
+    carbon = carbon_saved(waste_type)
 
     return {
-        "waste_type": waste_type
+        "waste_type": waste_type,
+        "carbon_saved_kg": carbon
     }
