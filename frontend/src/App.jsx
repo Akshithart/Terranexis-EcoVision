@@ -48,6 +48,10 @@ function App() {
             Score:
             {result.sustainability_score}
           </p>
+          <p>
+            Recommendation:
+            {result.suggestion}
+          </p>
 
         </div>
       )}
