@@ -1,4 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from carbon_calculator import carbon_saved
 from revenue_calculator import revenue
 from sustainability_score import score
@@ -7,6 +8,13 @@ from weight_estimator import estimate_weight
 from recommendation import recommendation
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def home():
