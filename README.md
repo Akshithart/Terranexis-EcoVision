@@ -19,3 +19,16 @@ AI-powered waste analysis system.
 ## Installation
 
 ...
+Image Upload
+      ↓
+FastAPI
+      ↓
+Waste Detector
+      ↓
+Carbon Calculator
+      ↓
+Revenue Calculator
+      ↓
+Sustainability Engine
+      ↓
+Frontend Dashboard
