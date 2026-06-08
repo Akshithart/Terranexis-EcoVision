@@ -4,7 +4,7 @@ from revenue_calculator import revenue
 from sustainability_score import score
 from ai.detector import detect_waste
 from weight_estimator import estimate_weight
-
+from recommendation import recommendation
 
 app = FastAPI()
 
@@ -25,19 +25,30 @@ async def analyze_image():
 
     waste_type = result["waste_type"]
     confidence = result["confidence"]
-  
-    weight = estimate_weight(waste_type)
-    carbon = carbon_saved(waste_type, weight)
 
-    
-    revenue_generated = revenue(waste_type, weight)
-    sustainability_score = score(waste_type)
+    weight = estimate_weight(waste_type)
+
+    carbon = carbon_saved(
+        waste_type,
+        weight
+    )
+
+    money = revenue(
+        waste_type,
+        weight
+    )
+
+    eco_score = score(waste_type)
+    suggestion = recommendation(
+    waste_type
+)
 
     return {
-    "waste_type": waste_type,
-    "confidence": confidence,
-    "estimated_weight_g": weight,
-    "carbon_saved_kg": carbon,
-    "revenue_generated": revenue_generated,
-    "sustainability_score": sustainability_score
-}
+        "waste_type": waste_type,
+        "confidence": confidence,
+        "estimated_weight": weight,
+        "carbon_saved": carbon,
+        "revenue": money,
+        "sustainability_score": eco_score,
+        "suggestion": suggestion
+    }
