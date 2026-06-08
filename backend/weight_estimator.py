@@ -1,10 +1,12 @@
 def estimate_weight(waste_type):
 
     weights = {
-        "Plastic Bottle": 20,
-        "Paper": 15,
-        "Metal Can": 35,
-        "Glass Bottle": 150
+        "Plastic":20,
+        "Paper":15,
+        "Metal":35,
+        "Glass":150,
+        "Organic":100,
+        "E-Waste":250
     }
 
-    return weights.get(waste_type, 10)
+    return weights.get(waste_type,50)

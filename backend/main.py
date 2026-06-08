@@ -1,3 +1,5 @@
+from unittest import result
+
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from carbon_calculator import carbon_saved
@@ -6,6 +8,7 @@ from sustainability_score import score
 from ai.detector import detect_waste
 from weight_estimator import estimate_weight
 from recommendation import recommendation
+import os
 
 app = FastAPI()
 app.add_middleware(
@@ -27,13 +30,29 @@ async def upload_image(file: UploadFile = File(...)):
     }
 
 @app.post("/analyze")
-async def analyze_image():
+async def analyze_image(file: UploadFile = File(...)):
 
-    result = detect_waste("sample.jpg")
+    file_path = f"uploads/{file.filename}"
+
+    os.makedirs("uploads", exist_ok=True)
+
+    with open(file_path, "wb") as buffer:
+        buffer.write(await file.read())
+
+    result = detect_waste(file_path)
 
     waste_type = result["waste_type"]
     confidence = result["confidence"]
-
+    if "Plastic" in waste_type:
+        waste_type = "Plastic Bottle"
+    elif "Metal" in waste_type:
+        waste_type = "Metal Can"
+    elif "Glass" in waste_type:
+        waste_type = "Glass Bottle"
+    elif "Paper" in waste_type:
+        waste_type = "Paper"
+    else:
+        waste_type = "Organic"
     weight = estimate_weight(waste_type)
 
     carbon = carbon_saved(
@@ -50,7 +69,7 @@ async def analyze_image():
     suggestion = recommendation(
     waste_type
 )
-
+    
     return {
         "waste_type": waste_type,
         "confidence": confidence,
