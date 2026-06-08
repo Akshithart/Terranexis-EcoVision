@@ -1,11 +1,10 @@
-def carbon_saved(waste):
+def carbon_saved(waste_type, weight):
 
-    data = {
-        "Plastic":0.12,
-        "Paper":0.08,
-        "Metal":0.30,
-        "Glass":0.10,
-        "Organic":0.05
+    factor = {
+        "Plastic Bottle": 0.006,
+        "Paper": 0.004,
+        "Metal Can": 0.009,
+        "Glass Bottle": 0.002
     }
 
-    return data.get(waste,0)
+    return round(weight * factor.get(waste_type,0),2)

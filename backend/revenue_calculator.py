@@ -1,11 +1,10 @@
-def revenue(waste):
+def revenue(waste_type, weight):
 
-    data = {
-        "Plastic":0.4,
-        "Paper":0.2,
-        "Metal":1.5,
-        "Glass":0.3,
-        "Organic":0
+    price = {
+        "Plastic Bottle":0.02,
+        "Paper":0.01,
+        "Metal Can":0.05,
+        "Glass Bottle":0.01
     }
 
-    return data.get(waste,0)
+    return round(weight * price.get(waste_type,0),2)
