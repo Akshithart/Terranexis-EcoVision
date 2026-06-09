@@ -1,7 +1,9 @@
+import os
+
 import google.generativeai as genai
 from PIL import Image
 
-genai.configure(api_key="YOUR_API_KEY")  # Replace with your actual API key
+genai.configure(api_key=os.getenv("GCP_API_KEY"))
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 

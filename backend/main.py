@@ -9,6 +9,12 @@ from ai.detector import detect_waste
 from weight_estimator import estimate_weight
 from recommendation import recommendation
 import os
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 
 app = FastAPI()
 app.add_middleware(
